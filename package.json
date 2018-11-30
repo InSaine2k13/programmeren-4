@@ -14,7 +14,7 @@
   "author": "Robin",
   "license": "ISC",
   "dependencies": {
-    "chai": "^4.1.2",
+    "chai": "^4.2.0",
     "chai-http": "^4.0.0",
     "express": "^4.16.4",
     "mocha": "^5.1.1",
