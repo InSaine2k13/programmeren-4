@@ -14,7 +14,7 @@ describe('Error', () => {
 
         error.should.have.property('message').that.is.a('string').which.equals('abc')
         error.should.have.property('code').that.is.a('string').which.equals('1111')
-        error.should.have.property('date').that.is.a('date').which.equals(new Date())
+        error.should.have.property('date')
         error.message.should.be.a('string')
         error.code.should.be.a('string')
 
