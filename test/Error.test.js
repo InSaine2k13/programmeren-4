@@ -3,7 +3,7 @@
 //
 const chai = require('chai')
 const assert = require('assert')
-const Error = require('../src/models/error.model')
+const Error = require('../src/models/apierror.model')
 
 chai.should()
 
