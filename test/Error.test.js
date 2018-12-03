@@ -10,7 +10,7 @@ chai.should()
 describe('Error', () => {
 
     it('should be intitialized successfully when providing valid arguments', (done) => {
-        const error = new Error('  abc  ', '  1111  ')
+        const error = new Error('abc', '1111')
 
         error.should.have.property('message').that.is.a('string').which.equals('abc')
         error.should.have.property('code').that.is.a('string').which.equals('1111')
