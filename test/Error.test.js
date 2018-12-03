@@ -18,7 +18,7 @@ describe('Error', () => {
         error.message.should.be.a('string')
         error.code.should.be.a('string')
 
-        assert.equal(error.name, 'abc', 'Names do not match')
+        assert.equal(error.message, 'abc', 'Messages do not match')
 
         done()
     })
