@@ -14,7 +14,7 @@ const port = process.env.PORT || 3000
 // reguliere routing
 app.use('/api', gameRoutes)
 
-// handler voor niet-bestaande routes(url)
+// handler voor niet-bestaande routes
 app.use('*', (req, res, next) => {
 	next(new ApiError('Non-existing endpoint', 404))
 })
