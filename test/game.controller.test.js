@@ -1,14 +1,78 @@
 const chai = require('chai')
 const chaiHttp = require('chai-http')
 const server = require('../server')
+const pool = require('../src/config/db')
 
 chai.should()
 chai.use(chaiHttp)
 
 const endpointToTest = '/api/games'
 
+const gamedata = {
+    title: 'gametitle',
+    producer: 'gameproducer',
+    year: 2000,
+    type: 'ADVENTURE'
+}
+
+describe('Games API GET', () => {
+
+    //
+    // Deze functie wordt eenmaal aangeroepen voordat de tests worden gestart.
+    //
+    before((done) => {
+        // Verwijder alle voorgaande data uit de tabel
+        const query = 'DELETE FROM `games`'
+        pool.query(query, (err, rows, fields) => {
+            if (err) {
+                assert.fail(err)
+            } else {
+                // Registreer data in de testdatabase
+                const query = 'INSERT INTO `games` (`title`, `producer`, `year`, `type`) VALUES (?, ?, ?, ?)'
+                const values = [gamedata.title, gamedata.producer, gamedata.year, gamedata.type]
+                pool.query(query, values, (err, rows, fields) => {
+                    if (err) {
+                        assert.fail(err)
+                    } else {
+                        done();
+                    }
+                })
+            }
+        })
+    });
+
+    // beforeEach functie wordt aangeroepen voor iedere test.
+    beforeEach(function () {
+        console.log('beforeEach')
+        // set things we need for testing
+        //
+        // Je zou hier kunnen kiezen om de database voor iedere test leeg te maken 
+        // en opnieuw te vullen met enkele waarden, zodat je weet wat er in zit.
+        //
+    });
+
+    it('should return an array of Games', (done) => {
+        const token = require('./authentication.test').token
+        chai.request(server)
+            .get(endpointToTest)
+            .set('x-access-token', token)
+            .end((err, res) => {
+                res.should.have.status(200)
+                res.body.should.be.a('object')
+                res.body.result.should.be.an('array')
+                res.body.result.should.have.length(1)
+                done()
+            })
+    })
+})
+
+// 
+// Verwijder .skip in ieder van de volgende tests en implementeer ze op de juiste manier.
+//
+
 describe('Games API POST', () => {
-    it('should return a valid game when posting a valid object', (done) => {
+
+    it.skip('should return a valid game when posting a valid object', (done) => {
  
         chai.request(server)
             .post(endpointToTest)
@@ -34,7 +98,7 @@ describe('Games API POST', () => {
         })
     })
 
-    it('should throw an error when using invalid JWT token', (done) => {
+    it.skip('should throw an error when using invalid JWT token', (done) => {
         chai.request(server)
             .post(endpointToTest)
             .set('x-access-token', 'in.valid.token')
@@ -55,7 +119,7 @@ describe('Games API POST', () => {
             })
     })
 
-    it('should throw an error when no firstname is provided', (done) => {
+    it.skip('should throw an error when no firstname is provided', (done) => {
         const token = require('./authentication.test').token
         chai.request(server)
             .post(endpointToTest)
@@ -78,33 +142,10 @@ describe('Games API POST', () => {
             })
     })
 
-    it.skip('should throw an error when no valid firstname is provided', (done) => {
-        // Write your test here
-        done()
-    })
-
-    it.skip('should throw an error when no lastname is provided', (done) => {
-        // Write your test here
-        done()
-    })
-
-    it.skip('should throw an error when no valid lastname is provided', (done) => {
-        // Write your test here
-        done()
-    })
-
-})
-
-describe('Games API GET', () => {
-    it.skip('should return an array of Gamess', (done) => {
-        // Write your test here
-        done()
-    })
-
 })
 
 describe('Games API PUT', () => {
-    it('should return the updated Games when providing valid input', (done) => {
+    it.skip('should return the updated Games when providing valid input', (done) => {
         const token = require('./authentication.test').token
         // console.log('token = ' + token)
         chai.request(server)
