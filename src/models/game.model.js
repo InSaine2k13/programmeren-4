@@ -1,11 +1,11 @@
 
 class Game {
 
-	constructor(name, prod, yr, tp) {
+	constructor(name, producer, year, type) {
 		this.name = name.trim();
-		this.producer = prod;
-		this.year = yr;
-		this.type = tp;
+		this.producer = producer;
+		this.year = year;
+		this.type = type;
 	}
 
 }

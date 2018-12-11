@@ -23,6 +23,21 @@ module.exports = {
 		} catch (ex) {
 			next(new ApiError(ex.toString(), 500))
 		}
-	}
+	},
+
+	getAll(req, res, next) {
+		console.log('userController.get called')
+		console.log(`DEBUG: user.id = ${req.user.id}`)
+
+		// For pool initialization, see above
+		pool.query("SELECT * FROM users", function (err, rows, fields) {
+			// Connection is automatically released when query resolves
+			if(err){
+				console.log(err)
+				return next(new ApiError(err, 500))
+			}
+			res.status(200).json({ result: rows }).end()
+		})
+	},
 
 }
